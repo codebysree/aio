@@ -18,7 +18,6 @@ export default function Bmi() {
 
   const calculateBMI = () => {
     const bmiInt = weight / Math.pow(height, 2);
-    console.log(bmiInt)
     switch (true) {
       case bmiInt <= 18.5:
         alert("Underweight");
