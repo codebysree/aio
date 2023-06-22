@@ -8,7 +8,7 @@ const Cards = () => {
         <div className="card-body">
           <h5 className="card-title">BMI</h5>
           <p className="card-text">BMI is a number calculated from weight and height to determine body weight categories..</p>
-          <Link href="/bmi" className="btn btn-primary">Go somewhere</Link>
+          <Link href="/bmi" className="btn btn-primary">Calculate My Body</Link>
         </div>
       </div>
       <div className="card">
@@ -25,7 +25,7 @@ const Cards = () => {
           <a href="#" className="btn btn-primary">Go somewhere</a>
         </div>
       </div>
-      <div className="card">
+      {/*<div className="card">
         <div className="card-body">
           <h5 className="card-title">Special title treatment</h5>
           <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
@@ -38,7 +38,7 @@ const Cards = () => {
           <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
           <a href="#" className="btn btn-primary">Go somewhere</a>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

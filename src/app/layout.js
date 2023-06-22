@@ -1,5 +1,7 @@
 import { Inter } from 'next/font/google'
 import 'bootstrap/dist/css/bootstrap.css'
+import "bootstrap-icons/font/bootstrap-icons.css";
+import Link from 'next/link'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -24,9 +26,9 @@ function Home() {
     <>
       <nav className="navbar bg-body-tertiary">
         <div className="container">
-          <a className="navbar-brand" href="#">
+          <Link className="navbar-brand" href="/">
             AIO
-          </a>
+          </Link>
         </div>
       </nav>
       {/* <Cards></Cards> */}
