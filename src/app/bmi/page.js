@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-export default function bmi() {
+export default function Bmi() {
 
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
