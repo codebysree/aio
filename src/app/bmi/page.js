@@ -1,11 +1,14 @@
 'use client'
 
 import { useState, useEffect } from "react"
+import wait from '../util'
 
 export default function Bmi() {
 
   const [height, setHeight] = useState(0);
+  const [heightUnit, setHeightUnit] = useState('m');
   const [weight, setWeight] = useState(0);
+  const [weightUnit, setWeightUnit] = useState('kg');
   const [resultText, setresultText] = useState('');
   const [isClicked, setIsClicked] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -15,17 +18,16 @@ export default function Bmi() {
 
     if (isClicked) {
       intervalId = setInterval(() => {
-        console.log('progress', progress)
         setProgress((prevProgress) => {
-          const newProgress = prevProgress + 25;
+          const newProgress = prevProgress + 50;
           return newProgress > 100 ? 100 : newProgress;
         });
-        console.log('Interval is running...');
       }, 1000); // Interval duration: 1 second
     }
 
     return () => {
       clearInterval(intervalId); // Clear the interval when the component unmounts or when isClicked changes to false
+      setProgress(0);
     };
   }, [isClicked]);
 
@@ -37,24 +39,67 @@ export default function Bmi() {
     setWeight(event.target.value)
   }
 
+  const reset = () => {
+    setHeight(0);
+    setWeight(0);
+    setresultText('');
+    setIsClicked(false);
+    setProgress(0);
+    setWeightUnit('kg');
+    setHeightUnit('m')
+
+  }
+
+  const changeHeightUnit = (event) => {
+    setHeightUnit(event.target.value)
+  }
+
+  const changeWeightUnit = (event) => {
+    setWeightUnit(event.target.value)
+  }
+
   const calculateBMI = async () => {
     setIsClicked(true);
-    const bmiInt = parseFloat((weight / Math.pow(height, 2))).toFixed(1);
-    console.log('bmiInt', bmiInt)
-    await new Promise(res => setTimeout(res, 5000))
+    let weightInKg, heightInMet;
+
+    if (heightUnit == 'cm') {
+      heightInMet = height / 100;
+    }
+    else if (heightUnit == 'ft') {
+      heightInMet = (height / 3.281)
+    }
+    else if (heightUnit == 'in') {
+      heightInMet = (height / 39.37)
+    }
+    else {
+      heightInMet = height
+    }
+
+    if (weightUnit == 'lb') {
+      weightInKg = (weight / 2.205)
+    }
+    else {
+      weightInKg = weight
+    }
+    console.log(weightInKg, weightUnit, '-------', heightInMet, heightUnit);
+    const bmiInt = parseFloat((weightInKg / Math.pow(heightInMet, 2))).toFixed(1);
+    console.log(bmiInt);
+    await wait(3000);
     const commonClass = "badge fs-2 justify-content-center mt-4";
+    console.log('12345', bmiInt, heightInMet);
+    console.log('Needed--', 24.9 * heightInMet * heightInMet);
     switch (true) {
       case bmiInt <= 18.5:
-        setresultText(`<span class="${commonClass} text-bg-warning">You are Underweight</span>`)
+        setresultText(`<span class="${commonClass} text-bg-warning">Underweight</span>`)
         break;
       case bmiInt > 18.5 && bmiInt <= 24.9:
         setresultText(`<span class="${commonClass} text-bg-success">Healthy Weight</span>`)
         break;
       case bmiInt >= 25.0 && bmiInt <= 29.9:
-        setresultText(`<span class="${commonClass} text-bg-warning">You are Overweight</span>`);
+        setresultText(`<span class="${commonClass} text-bg-warning">Overweight</span>`);
         break;
       case bmiInt >= 30.0:
-        setresultText(`<span class="${commonClass} text-bg-danger">You are in Obese Category ~ Obesity</span>`)
+        setresultText(`<span class="${commonClass} text-bg-danger">Obesity</span>`)
         break;
       default:
         setresultText('<span class="badge text-bg-light">Not Found</span>')
@@ -65,59 +110,88 @@ export default function Bmi() {
 
   return (
     <>
-      <div className="card col-9 mb-3 mt-5 offset-2 shadow">
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          {/* <h5 class="card-title">Light card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
+      <div className="ms-3 text-center">
+        <div className="row">
+          <div className="col-6">
+            <div className="card mt-2 shadow">
+              <div className="card-header">Calculate BMI</div>
+              <div className="card-body">
+                <div className="row">
+                  <form id="bmi">
 
-          <form >
-            <div className="offset-3 row mt-1 g-3 align-items-center">
-              <div className="col-auto">
-                <label htmlFor="Height" className="col-form-label">Height</label>
+                    <div className="row mb-3">
+                      <label htmlFor="height" className="col-sm-2 col-form-label">Height</label>
+                      <div className="col-sm-7">
+                        <input type="number" id="height" min={0} max={3} value={height} onChange={handleHeightChange}
+                          name="height" className="form-control" aria-labelledby="HeightHelpIn" />
+                      </div>
+                      <div className="col-sm-3">
+                        <select className="form-select" value={heightUnit} aria-label="form-select-sm example" onChange={changeHeightUnit}>
+                          <option value="cm">Centimeters (cm) </option>
+                          <option value="m">Meter (m)</option>
+                          <option value="ft">Foot</option>
+                          <option value="in">Inch</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="row mb-3">
+                      <label htmlFor="Weight" className="col-sm-2 col-form-label">Weight</label>
+                      <div className="col-sm-7">
+                        <input type="number" id="weight" min={0} max={200} name="weight" value={weight} onChange={handleWeightChange}
+                          className="form-control" aria-labelledby="WeightHelpIn" />
+                      </div>
+                      <div className="col-sm-3">
+                        <select className="form-select" value={weightUnit} aria-label="form-select-sm example" onChange={changeWeightUnit}>
+                          <option value="kg">Kilogram (kg) </option>
+                          <option value="lb">Pound (p)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="">
+                      <button className="btn btn-outline-primary btn-sm float-end" type="button" onClick={calculateBMI} >Calculate BMI</button>
+                      <button className="btn btn-link btn-sm float-start" type="button" onClick={reset} >Reset</button>
+                    </div>
+                  </form>
+                </div>
+
+                {(isClicked) ? (
+                  <>
+                    <div className="progress  mt-4" role="progressbar" aria-label="Animated striped example" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100" style={{ height: '10px' }}>
+                      <div className="progress-bar progress-bar-striped progress-bar-animated" style={{ width: `${progress}%` }}></div>
+                    </div>
+                  </>
+                ) : ''}
               </div>
-              <div className="col-4">
-                <input type="number" id="height" max={3} value={height} onChange={handleHeightChange}
-                  name="height" className="form-control" aria-labelledby="HeightHelpIn" />
+
+              <div className="card-footer text-body-secondary">
+                2 days ago
               </div>
-              <div className="col-auto">
-                <span id="HeightHelpIn" className="form-text">
-                  Height Must be meters (m).
-                </span>
-              </div>
-            </div>
-            <div className="offset-3 row mt-1 g-3 align-items-center">
-              <div className="col-auto">
-                <label htmlFor="Weight" className="col-form-label">Weight</label>
-              </div>
-              <div className="col-4">
-                <input type="number" id="weight" max={200} name="weight" value={weight} onChange={handleWeightChange}
-                  className="form-control" aria-labelledby="WeightHelpIn" />
-              </div>
-              <div className="col-auto">
-                <span id="WeightHelpIn" className="form-text">
-                  Weight Must be Kilogram (Kg).
-                </span>
-              </div>
-            </div>
-            <div className="col-6 d-grid mt-3 mx-auto">
-              <button className="btn btn-primary" type="button" onClick={calculateBMI} >Calculate My BMI</button>
-            </div>
-          </form>
-          {(isClicked) ? (
-            <>
-              <div className="progress mt-5" role="progressbar" aria-label="Animated striped example" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100" style={{ height: '10px' }}>
-                <div className="progress-bar progress-bar-striped progress-bar-animated" style={{ width: `${progress}%` }}>{progress}%</div>
-              </div>
-            </>
-          ) : ''}
-          <div className="offset-3" dangerouslySetInnerHTML={{ __html: resultText ? resultText : '' }}>
+            </div >
           </div>
-        </div>
-        <div className="card-footer text-body-secondary">
-          2 days ago
+
+          {(resultText) ? (<>
+
+            <div className="col mt-2">
+              <div className="card" style={{ width: '25rem' }}>
+                <img src={
+                  resultText.indexOf('Healthy') > -1 ? 'https://media.tenor.com/iGDmYcyzQcUAAAAi/bodybuilding-fitness.gif' :
+                    resultText.indexOf('Underweight') > -1 ? 'https://media.tenor.com/oJMYES-ZP4IAAAAi/take-the-l-loser-dance.gif' :
+                      resultText.indexOf('Overweight') > -1 ? 'https://media.tenor.com/rKbRmhnR09YAAAAC/bleh-blehatrice.gif' :
+                        'https://media.tenor.com/iM4tcYAJiF4AAAAj/grenadier-training-bot-spray-jett.gif'
+                } className="card-img-top" alt="..." />
+
+                <div className="card-body">
+                  <p className="card-text" dangerouslySetInnerHTML={{ __html: resultText ? resultText : '' }}></p>
+                </div>
+              </div>
+            </div>
+          </>) : ''}
+
         </div>
       </div >
+
     </>
   )
 }
