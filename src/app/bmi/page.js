@@ -85,21 +85,22 @@ export default function Bmi() {
     const bmiInt = parseFloat((weightInKg / Math.pow(heightInMet, 2))).toFixed(1);
     console.log(bmiInt);
     await wait(3000);
-    const commonClass = "badge fs-2 justify-content-center mt-4";
-    console.log('12345', bmiInt, heightInMet);
-    console.log('Needed--', 24.9 * heightInMet * heightInMet);
+    const commonClass = "badge fs-6 fst-italic justify-content-center mt-4";
+    let idealWeight, weightDifference;
+
     switch (true) {
       case bmiInt <= 18.5:
-        setresultText(`<span class="${commonClass} text-bg-warning">Underweight</span>`)
+        idealWeight = 18.5 * heightInMet * heightInMet;
+        weightDifference = (idealWeight - weightInKg).toFixed(2)
+        setresultText(`<span class="${commonClass} text-bg-warning">You are underweight. You may need to gain ${weightDifference} kg.</span>`)
         break;
-      case bmiInt > 18.5 && bmiInt <= 24.9:
-        setresultText(`<span class="${commonClass} text-bg-success">Healthy Weight</span>`)
+      case bmiInt > 18.5 && bmiInt < 24.9:
+        setresultText(`<span class="${commonClass} text-bg-success">You have a healthy weight. Maintain your current weight.</span>`)
         break;
-      case bmiInt >= 25.0 && bmiInt <= 29.9:
-        setresultText(`<span class="${commonClass} text-bg-warning">Overweight</span>`);
-        break;
-      case bmiInt >= 30.0:
-        setresultText(`<span class="${commonClass} text-bg-danger">Obesity</span>`)
+      case bmiInt >= 24.9:
+        idealWeight = 24.9 * heightInMet * heightInMet;
+        weightDifference = (idealWeight - weightInKg).toFixed(2)
+        setresultText(`<span class="${commonClass} text-bg-warning">You are overweight. You may need to lose ${weightDifference} kg.</span>`);
         break;
       default:
         setresultText('<span class="badge text-bg-light">Not Found</span>')
@@ -174,11 +175,11 @@ export default function Bmi() {
           {(resultText) ? (<>
 
             <div className="col mt-2">
-              <div className="card" style={{ width: '25rem' }}>
+              <div className="card shadow" style={{ width: '31rem' }}>
                 <img src={
-                  resultText.indexOf('Healthy') > -1 ? 'https://media.tenor.com/iGDmYcyzQcUAAAAi/bodybuilding-fitness.gif' :
-                    resultText.indexOf('Underweight') > -1 ? 'https://media.tenor.com/oJMYES-ZP4IAAAAi/take-the-l-loser-dance.gif' :
-                      resultText.indexOf('Overweight') > -1 ? 'https://media.tenor.com/rKbRmhnR09YAAAAC/bleh-blehatrice.gif' :
+                  resultText.indexOf('healthy') > -1 ? 'https://media.tenor.com/iGDmYcyzQcUAAAAi/bodybuilding-fitness.gif' :
+                    resultText.indexOf('underweight') > -1 ? 'https://media.tenor.com/oJMYES-ZP4IAAAAi/take-the-l-loser-dance.gif' :
+                      resultText.indexOf('overweight') > -1 ? 'https://media.tenor.com/rKbRmhnR09YAAAAC/bleh-blehatrice.gif' :
                         'https://media.tenor.com/iM4tcYAJiF4AAAAj/grenadier-training-bot-spray-jett.gif'
                 } className="card-img-top" alt="..." />
 
