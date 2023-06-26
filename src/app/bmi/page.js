@@ -85,7 +85,7 @@ export default function Bmi() {
     const bmiInt = parseFloat((weightInKg / Math.pow(heightInMet, 2))).toFixed(1);
     console.log(bmiInt);
     await wait(3000);
-    const commonClass = "badge fs-6 fst-italic justify-content-center mt-4";
+    const commonClass = "badge fs-6 text-start text-wrap";
     let idealWeight, weightDifference;
 
     switch (true) {
@@ -113,7 +113,7 @@ export default function Bmi() {
     <>
       <div className="ms-3 text-center">
         <div className="row">
-          <div className="col-6">
+          <div className="col-lg-6 col-sm-12">
             <div className="card mt-2 shadow">
               <div className="card-header">Calculate BMI</div>
               <div className="card-body">
@@ -175,7 +175,7 @@ export default function Bmi() {
           {(resultText) ? (<>
 
             <div className="col mt-2">
-              <div className="card shadow" style={{ width: '31rem' }}>
+              <div className="card shadow" style={{ width: '25rem' }}>
                 <img src={
                   resultText.indexOf('healthy') > -1 ? 'https://media.tenor.com/iGDmYcyzQcUAAAAi/bodybuilding-fitness.gif' :
                     resultText.indexOf('underweight') > -1 ? 'https://media.tenor.com/oJMYES-ZP4IAAAAi/take-the-l-loser-dance.gif' :
