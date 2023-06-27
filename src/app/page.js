@@ -4,43 +4,41 @@ import styles from './page.module.css'
 const Cards = () => {
   return (
     <div className={styles.flexContainer}>
-      <div className="card shadow">
-        <div className="card-body">
-          <h5 className="card-title">BMI</h5>
-          <p className="card-text">BMI is a number calculated from weight and height to determine body weight categories..</p>
-          <Link href="/bmi" className="btn btn-primary">Calculate My Body</Link>
-        </div>
-      </div>
-      <div className="card shadow">
-        <div className="card-body">
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-      <div className="card shadow">
-        <div className="card-body">
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-      {/*<div className="card">
-        <div className="card-body">
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-      <div className="card">
-        <div className="card-body">
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
-        </div>
-      </div> */}
+      {
+        modules.map((item) => (
+          <div className="card shadow" key={item.title}>
+            <div className="card-body">
+              <h5 className="card-title">{item.title}</h5>
+              <p className="card-text">{item.desciption}</p>
+              <Link href={item.route} className="btn btn-primary">{item.buttonText}</Link>
+            </div>
+          </div>
+        ))
+      }
+      
     </div>
   )
 }
+
+const modules = [
+  {
+    title: 'BMI',
+    desciption: 'BMI is a number calculated from weight and height.',
+    route: '/bmi',
+    buttonText: 'Calculate BMI'
+  },
+  {
+    title: 'Dictionary',
+    desciption: 'Definitions, phonetics, pronounciations, parts of speech etc.',
+    route: '/dictionary',
+    buttonText: 'Get Meaning'
+  },
+  {
+    title: 'Special title treatment',
+    desciption: 'Coming Soon.',
+    route: '#',
+    buttonText: 'Coming Soon'
+  },
+];
 
 export default Cards;

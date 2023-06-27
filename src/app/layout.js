@@ -31,7 +31,6 @@ function Home() {
           </Link>
         </div>
       </nav>
-      {/* <Cards></Cards> */}
     </>
   )
 }
