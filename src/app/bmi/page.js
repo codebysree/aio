@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from "react"
+
+import ResultCardComponent from './resultcard';
 import wait from '../util'
 
 export default function Bmi() {
@@ -111,7 +113,7 @@ export default function Bmi() {
 
   return (
     <>
-      <div className="ms-3 text-center">
+      <div className="container">
         <div className="row">
           <div className="col-lg-6 col-sm-12">
             <div className="card mt-2 shadow">
@@ -172,23 +174,7 @@ export default function Bmi() {
             </div >
           </div>
 
-          {(resultText) ? (<>
-
-            <div className="col mt-2">
-              <div className="card shadow" style={{ width: '25rem' }}>
-                <img src={
-                  resultText.indexOf('healthy') > -1 ? 'https://media.tenor.com/iGDmYcyzQcUAAAAi/bodybuilding-fitness.gif' :
-                    resultText.indexOf('underweight') > -1 ? 'https://media.tenor.com/oJMYES-ZP4IAAAAi/take-the-l-loser-dance.gif' :
-                      resultText.indexOf('overweight') > -1 ? 'https://media.tenor.com/rKbRmhnR09YAAAAC/bleh-blehatrice.gif' :
-                        'https://media.tenor.com/iM4tcYAJiF4AAAAj/grenadier-training-bot-spray-jett.gif'
-                } className="card-img-top" alt="..." />
-
-                <div className="card-body">
-                  <p className="card-text" dangerouslySetInnerHTML={{ __html: resultText ? resultText : '' }}></p>
-                </div>
-              </div>
-            </div>
-          </>) : ''}
+          {(resultText) ? <ResultCardComponent data={resultText}></ResultCardComponent> : ''}
 
         </div>
       </div >
