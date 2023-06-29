@@ -113,71 +113,65 @@ export default function Bmi() {
 
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-6 col-sm-12">
-            <div className="card mt-2 shadow">
-              <div className="card-header">Calculate BMI</div>
-              <div className="card-body">
-                <div className="row">
-                  <form id="bmi">
+      <div className="col-lg-6 col-sm-12">
+        <div className="card mt-2 shadow">
+          <div className="card-header">Calculate BMI</div>
+          <div className="card-body">
+            <div className="row">
+              <form id="bmi">
 
-                    <div className="row mb-3">
-                      <label htmlFor="height" className="col-sm-2 col-form-label">Height</label>
-                      <div className="col-sm-7">
-                        <input type="number" id="height" min={0} max={3} value={height} onChange={handleHeightChange}
-                          name="height" className="form-control" aria-labelledby="HeightHelpIn" />
-                      </div>
-                      <div className="col-sm-3">
-                        <select className="form-select" value={heightUnit} aria-label="form-select-sm example" onChange={changeHeightUnit}>
-                          <option value="cm">Centimeters (cm) </option>
-                          <option value="m">Meter (m)</option>
-                          <option value="ft">Foot</option>
-                          <option value="in">Inch</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="row mb-3">
-                      <label htmlFor="Weight" className="col-sm-2 col-form-label">Weight</label>
-                      <div className="col-sm-7">
-                        <input type="number" id="weight" min={0} max={200} name="weight" value={weight} onChange={handleWeightChange}
-                          className="form-control" aria-labelledby="WeightHelpIn" />
-                      </div>
-                      <div className="col-sm-3">
-                        <select className="form-select" value={weightUnit} aria-label="form-select-sm example" onChange={changeWeightUnit}>
-                          <option value="kg">Kilogram (kg) </option>
-                          <option value="lb">Pound (p)</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="">
-                      <button className="btn btn-outline-primary btn-sm float-end" type="button" onClick={calculateBMI} >Calculate BMI</button>
-                      <button className="btn btn-link btn-sm float-start" type="button" onClick={reset} >Reset</button>
-                    </div>
-                  </form>
+                <div className="row mb-3">
+                  <label htmlFor="height" className="col-sm-2 col-form-label">Height</label>
+                  <div className="col-sm-7">
+                    <input type="number" id="height" min={0} max={3} value={height} onChange={handleHeightChange}
+                      name="height" className="form-control" aria-labelledby="HeightHelpIn" />
+                  </div>
+                  <div className="col-sm-3">
+                    <select className="form-select" value={heightUnit} aria-label="form-select-sm example" onChange={changeHeightUnit}>
+                      <option value="cm">Centimeters (cm) </option>
+                      <option value="m">Meter (m)</option>
+                      <option value="ft">Foot</option>
+                      <option value="in">Inch</option>
+                    </select>
+                  </div>
                 </div>
 
-                {(isClicked) ? (
-                  <>
-                    <div className="progress  mt-4" role="progressbar" aria-label="Animated striped example" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100" style={{ height: '10px' }}>
-                      <div className="progress-bar progress-bar-striped progress-bar-animated" style={{ width: `${progress}%` }}></div>
-                    </div>
-                  </>
-                ) : ''}
-              </div>
+                <div className="row mb-3">
+                  <label htmlFor="Weight" className="col-sm-2 col-form-label">Weight</label>
+                  <div className="col-sm-7">
+                    <input type="number" id="weight" min={0} max={200} name="weight" value={weight} onChange={handleWeightChange}
+                      className="form-control" aria-labelledby="WeightHelpIn" />
+                  </div>
+                  <div className="col-sm-3">
+                    <select className="form-select" value={weightUnit} aria-label="form-select-sm example" onChange={changeWeightUnit}>
+                      <option value="kg">Kilogram (kg) </option>
+                      <option value="lb">Pound (p)</option>
+                    </select>
+                  </div>
+                </div>
 
-              <div className="card-footer text-body-secondary">
-                2 days ago
-              </div>
-            </div >
+                <div className="">
+                  <button className="btn btn-outline-primary btn-sm float-end" type="button" onClick={calculateBMI} >Calculate BMI</button>
+                  <button className="btn btn-link btn-sm float-start" type="button" onClick={reset} >Reset</button>
+                </div>
+              </form>
+            </div>
+
+            {(isClicked) ? (
+              <>
+                <div className="progress  mt-4" role="progressbar" aria-label="Animated striped example" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100" style={{ height: '10px' }}>
+                  <div className="progress-bar progress-bar-striped progress-bar-animated" style={{ width: `${progress}%` }}></div>
+                </div>
+              </>
+            ) : ''}
           </div>
 
-          {(resultText) ? <ResultCardComponent data={resultText}></ResultCardComponent> : ''}
-
-        </div>
-      </div >
+          <div className="card-footer text-body-secondary">
+            2 days ago
+          </div>
+        </div >
+      </div>
+      {(resultText) ? <ResultCardComponent data={resultText}></ResultCardComponent> : ''}
 
     </>
   )
