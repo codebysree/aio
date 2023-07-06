@@ -60,7 +60,7 @@ export default function Weather() {
             <div className="card mt-2 shadow">
                 <div className="card-header">
                     <span className="float-start">Location</span>
-                    {imgSrc ? <span className="float-end">{json.location?.region + ', ' + json.location?.country}</span> : ''}
+                    {imgSrc ? <span className="float-end">{json.location?.name + ', ' + json.location?.region + ', ' + json.location?.country}</span> : ''}
                 </div>
                 <div className="card-body">
                     {imgSrc ? <>
