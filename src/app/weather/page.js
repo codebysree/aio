@@ -48,7 +48,7 @@ export default function Weather() {
 
     const getWeather = async (lat, long) => {
         const apiKey = process.env.NEXT_PUBLIC_WEATHER_API;
-        const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat + "," + long}&aqi=yes`;
+        const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat + "," + long}&aqi=yes`;
         const res = await fetch(url);
         const resjson = await res.json();
         setImgSrc(resjson.current.condition.icon)
