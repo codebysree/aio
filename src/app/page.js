@@ -39,6 +39,12 @@ const modules = [
     route: '/weather',
     buttonText: 'Fetch Weather'
   },
+  {
+    title: 'Json Formatter',
+    desciption: 'Format your data',
+    route: '/formatter',
+    buttonText: 'Data Formatter'
+  }
 ];
 
 export default Cards;
