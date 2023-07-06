@@ -34,10 +34,10 @@ const modules = [
     buttonText: 'Get Meaning'
   },
   {
-    title: 'Special title treatment',
-    desciption: 'Coming Soon.',
-    route: '#',
-    buttonText: 'Coming Soon'
+    title: 'Weather Info',
+    desciption: 'Get Weather information on your current location',
+    route: '/weather',
+    buttonText: 'Fetch Weather'
   },
 ];
 

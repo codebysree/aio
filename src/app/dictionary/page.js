@@ -35,6 +35,11 @@ export default function Dictionary() {
         getMeaning();
     }
 
+    const resetForm = () => {
+        setWord('');
+        setResultArr([]);
+    }
+
     return (
         <>
             <div className="col-lg-6 col-sm-12">
@@ -49,8 +54,10 @@ export default function Dictionary() {
                                         <button type="submit" className="btn btn-link" onClick={getMeaning}>
                                             <i className="bi bi-search"></i>
                                         </button>
-
                                     </span>
+                                </div>
+                                <div className="input-group mb-3">
+                                    <input type="button" className="btn btn-link" value="reset" onClick={resetForm} />
                                 </div>
                             </form>
                         </div>
@@ -94,7 +101,7 @@ export default function Dictionary() {
                             </Accordion>
                             :
                             <span>
-                                <Badge bg="warning">Not Found</Badge>
+                                <Badge bg="warning">Type the word to search</Badge>
                             </span>
                         }
                     </div>
