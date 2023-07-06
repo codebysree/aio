@@ -47,7 +47,7 @@ const FormatData = () => {
             </div>
             <div className="col">
                 <div className='shadow mt-4'>
-                    <pre>{formattedJson}</pre>
+                    <pre className='p-3'>{formattedJson}</pre>
                 </div>
             </div>
         </>
